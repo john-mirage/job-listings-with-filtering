@@ -1,0 +1,10 @@
+.page {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url("/src/assets/images/bg-header-mobile.svg"),
+                      linear-gradient(to bottom, var(--color-desaturated-dark-cyan) 15.6rem, var(--color-light-grayish-cyan-bg) 15.6rem);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: auto 15.6rem, cover;
+}

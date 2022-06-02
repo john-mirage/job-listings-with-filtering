@@ -1,9 +1,15 @@
+@import "assets/styles/page.css";
+@import "assets/styles/app.css";
+@import "assets/styles/job-filter.css";
+@import "assets/styles/job.css";
+
 :root {
   --color-desaturated-dark-cyan: hsl(180, 29%, 50%);
   --color-light-grayish-cyan-bg: hsl(180, 52%, 96%);
   --color-light-grayish-cyan-filter-tablets: hsl(180, 31%, 95%);
   --color-dark-grayish-cyan: hsl(180, 8%, 52%);
   --color-very-dark-grayish-cyan: hsl(180, 14%, 20%);
+  --color-white: hsl(0, 0%, 100%);
 
   --font-fallback: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
   --font: 'League Spartan', var(--font-fallback);
@@ -17,8 +23,4 @@
 
 html {
   font-size: 10px;
-}
-
-body {
-  margin: 0;
 }
