@@ -67,6 +67,7 @@ class JobApp extends HTMLElement {
     if (!this.jobFilterList.includes(filterToAdd)) {
       this.jobFilterList = [...this.jobFilterList, filterToAdd];
       this.filterJobList();
+      this.scrollToTheTop();
     }
   }
 
@@ -75,12 +76,20 @@ class JobApp extends HTMLElement {
     if (this.jobFilterList.includes(filterToDelete)) {
       this.jobFilterList = this.jobFilterList.filter((filter) => filter !== filterToDelete);
       this.filterJobList();
+      this.scrollToTheTop();
     }
   }
 
   clearJobFilterList() {
     this.jobFilterList = [];
     this.filterJobList();
+    this.scrollToTheTop();
+  }
+
+  scrollToTheTop() {
+    if (window.scrollY > 0) {
+      window.scroll(0, 0);
+    }
   }
 
   filterJobList() {

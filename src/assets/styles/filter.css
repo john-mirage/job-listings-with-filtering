@@ -28,6 +28,11 @@
     padding: 0;
     background-color: var(--color-desaturated-dark-cyan);
     border: none;
+    cursor: pointer;
+}
+
+.filter__button:hover {
+    background-color: var(--color-very-dark-grayish-cyan);
 }
 
 .filter__icon {

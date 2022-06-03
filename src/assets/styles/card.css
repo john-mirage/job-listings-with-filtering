@@ -7,6 +7,7 @@
     padding: 3.2rem 2.4rem 2.4rem 2.4rem;
     margin-bottom: 4rem;
     border-left: 0.5rem solid var(--color-desaturated-dark-cyan);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 .card__section {
@@ -85,12 +86,18 @@
 }
 
 .card__title {
+    display: block;
     font-family: var(--font);
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-very-dark-grayish-cyan);
     margin-top: 1.6rem;
     margin-bottom: 1.6rem;
+    text-decoration: none;
+}
+
+.card__title:hover {
+    color: var(--color-desaturated-dark-cyan);
 }
 
 .card__text {
@@ -133,4 +140,10 @@
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--color-desaturated-dark-cyan);
+    cursor: pointer;
+}
+
+.card__tag:hover {
+    background-color: var(--color-desaturated-dark-cyan);
+    color: var(--color-white);
 }

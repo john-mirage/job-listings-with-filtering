@@ -40,4 +40,9 @@
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--color-desaturated-dark-cyan);
+    cursor: pointer;
+}
+
+.filter-list__button:hover {
+    text-decoration: underline;
 }
