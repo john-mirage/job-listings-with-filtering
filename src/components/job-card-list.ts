@@ -1,13 +1,16 @@
 import Job from "@interfaces/job";
+import JobCardInterface from "@interfaces/job-card";
 
 class JobCardList extends HTMLDivElement {
   _jobList: Job[] | false;
   initialCall: boolean;
+  jobCards: JobCardInterface[];
 
   constructor() {
     super();
     this._jobList = false;
     this.initialCall = true;
+    this.jobCards = [];
   }
 
   get jobList() {
@@ -33,10 +36,21 @@ class JobCardList extends HTMLDivElement {
   displayJobCards() {
     this.innerHTML = "";
     this.jobList.forEach((job) => {
-      const jobCard = document.createElement("article", { is: "job-card" });
-      jobCard.job = job;
-      this.append(jobCard);
+      const jobCardElement = this.jobCards.find((jobCard) => jobCard.job.id === job.id);
+      if (jobCardElement) {
+        this.append(jobCardElement);
+      } else {
+        const newJobCardElement = this.createJobCard(job);
+        this.jobCards = [...this.jobCards, newJobCardElement];
+        this.append(newJobCardElement);
+      }
     });
+  }
+
+  createJobCard(job: Job) {
+    const jobCard = <JobCardInterface>document.createElement("article", { is: "job-card" });
+    jobCard.job = job;
+    return jobCard;
   }
 }
 

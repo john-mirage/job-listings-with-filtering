@@ -7,7 +7,7 @@ class JobApp extends HTMLElement {
   _jobFilterList: string[] | false;
   initialCall: boolean;
   jobCardListElement: JobCardListInterface;
-  jobFilterListElement: JobFilterListInterface
+  jobFilterListElement: JobFilterListInterface;
 
   constructor() {
     super();
@@ -53,23 +53,33 @@ class JobApp extends HTMLElement {
     }
     this.addEventListener("add-job-filter", this.addJobFilter);
     this.addEventListener("delete-job-filter", this.deleteJobFilter);
+    this.addEventListener("clear-job-filter-list", this.clearJobFilterList);
   }
 
   disconnectedCallback() {
     this.removeEventListener("add-job-filter", this.addJobFilter);
     this.removeEventListener("delete-job-filter", this.deleteJobFilter);
+    this.removeEventListener("clear-job-filter-list", this.clearJobFilterList);
   }
 
   addJobFilter(event: Event) {
-    console.log("add filter")
     const filterToAdd = (<CustomEvent>event).detail.filter;
-    this.jobFilterList = [...this.jobFilterList, filterToAdd];
-    this.filterJobList();
+    if (!this.jobFilterList.includes(filterToAdd)) {
+      this.jobFilterList = [...this.jobFilterList, filterToAdd];
+      this.filterJobList();
+    }
   }
 
   deleteJobFilter(event: Event) {
     const filterToDelete = (<CustomEvent>event).detail.filter;
-    this.jobFilterList = this.jobFilterList.filter((filter) => filter !== filterToDelete);
+    if (this.jobFilterList.includes(filterToDelete)) {
+      this.jobFilterList = this.jobFilterList.filter((filter) => filter !== filterToDelete);
+      this.filterJobList();
+    }
+  }
+
+  clearJobFilterList() {
+    this.jobFilterList = [];
     this.filterJobList();
   }
 

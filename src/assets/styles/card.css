@@ -1,4 +1,4 @@
-.job {
+.card {
     position: relative;
     width: 100%;
     height: auto;
@@ -6,14 +6,15 @@
     background-color: var(--color-white);
     padding: 3.2rem 2.4rem 2.4rem 2.4rem;
     margin-bottom: 4rem;
+    border-left: 0.5rem solid var(--color-desaturated-dark-cyan);
 }
 
-.job__section {
+.card__section {
     width: 100%;
     height: auto;
 }
 
-.job__section--logo {
+.card__section--logo {
     position: absolute;
     top: 0;
     left: 0;
@@ -23,7 +24,7 @@
     transform: translateY(-50%);
 }
 
-.job__section--tags {
+.card__section--tags {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -34,12 +35,12 @@
     margin-right: -0.8rem;
 }
 
-.job__logo {
+.card__logo {
     width: auto;
     height: 4.8rem;
 }
 
-.job__row {
+.card__row {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -47,15 +48,16 @@
     height: auto;
 }
 
-.job__company {
+.card__link {
     font-family: var(--font);
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-desaturated-dark-cyan);
     margin-right: 2.4rem;
+    text-decoration: none;
 }
 
-.job__badge {
+.card__badge {
     width: auto;
     height: 2.4rem;
     border-radius: 9999px;
@@ -70,19 +72,19 @@
     margin-right: 0.8rem;
 }
 
-.job__badge:last-child {
+.card__badge:last-child {
     margin-right: 0;
 }
 
-.job__badge--new {
+.card__badge--new {
     background-color: var(--color-very-dark-grayish-cyan);
 }
 
-.job__badge--featured {
+.card__badge--featured {
     background-color: var(--color-desaturated-dark-cyan);
 }
 
-.job__position {
+.card__title {
     font-family: var(--font);
     font-size: 1.5rem;
     font-weight: 700;
@@ -91,9 +93,7 @@
     margin-bottom: 1.6rem;
 }
 
-.job__posted-at,
-.job__contract,
-.job__location {
+.card__text {
     font-family: var(--font);
     font-size: 1.6rem;
     font-weight: 500;
@@ -102,7 +102,7 @@
     margin-bottom: 0;
 }
 
-.job__dot {
+.card__dot {
     width: 0.4rem;
     height: 0.4rem;
     border-radius: 9999px;
@@ -111,14 +111,14 @@
     margin-right: 0.8rem;
 }
 
-.job__divider {
+.card__divider {
     width: 100%;
     height: 0.1rem;
     margin-top: 1.6rem;
     background-color: var(--color-dark-grayish-cyan);
 }
 
-.job__tag {
+.card__tag {
     width: auto;
     height: 3.2rem;
     padding-left: 0.8rem;

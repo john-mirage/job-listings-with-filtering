@@ -30,6 +30,39 @@
   </head>
 
   <body class="page">
+
+    <!-- Template | card -->
+    <template id="template-card">
+      <div class="card__section card__section--logo">
+        <img class="card__logo" data-name="logo" src="" alt="">
+      </div>
+      <div class="card__section card__section--info">
+        <div class="card__row">
+          <a class="card__link" data-name="company" href="#"></a>
+        </div>
+        <p class="card__title" data-name="position"></p>
+        <div class="card__row">
+          <p class="card__text" data-name="posted-at"></p>
+          <div class="card__dot"></div>
+          <p class="card__text" data-name="contract"></p>
+          <div class="card__dot"></div>
+          <p class="card__text" data-name="location"></p>
+        </div>
+      </div>
+      <div class="card__divider"></div>
+      <div class="card__section card__section--tags" data-name="tags"></div>
+    </template>
+
+    <!-- Template | filter -->
+    <template id="template-filter">
+      <span class="filter__label" data-name="tag"></span>
+      <button class="filter__button" data-name="button">
+        <svg class="filter__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+          <path fill="#FFF" fill-rule="evenodd" d="M11.314 0l2.121 2.121-4.596 4.596 4.596 4.597-2.121 2.121-4.597-4.596-4.596 4.596L0 11.314l4.596-4.597L0 2.121 2.121 0l4.596 4.596L11.314 0z"/>
+        </svg>
+      </button>
+    </template>
+
     <!-- Module -->
     <script type="module" src="/src/main.ts"></script>
   </body>
