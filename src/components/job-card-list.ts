@@ -20,6 +20,7 @@ class JobCardList extends HTMLDivElement {
 
   set jobList(jobList: Job[]) {
     this._jobList = jobList;
+    this.displayJobCards();
   }
 
   connectedCallback() {
@@ -27,6 +28,15 @@ class JobCardList extends HTMLDivElement {
       this.classList.add("card-list");
       this.initialCall = false;
     }
+  }
+
+  displayJobCards() {
+    this.innerHTML = "";
+    this.jobList.forEach((job) => {
+      const jobCard = document.createElement("article", { is: "job-card" });
+      jobCard.job = job;
+      this.append(jobCard);
+    });
   }
 }
 

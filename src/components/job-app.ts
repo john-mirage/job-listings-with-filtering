@@ -61,6 +61,7 @@ class JobApp extends HTMLElement {
   }
 
   addJobFilter(event: Event) {
+    console.log("add filter")
     const filterToAdd = (<CustomEvent>event).detail.filter;
     this.jobFilterList = [...this.jobFilterList, filterToAdd];
     this.filterJobList();

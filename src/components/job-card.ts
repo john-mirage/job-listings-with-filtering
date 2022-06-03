@@ -30,6 +30,18 @@ class JobCard extends HTMLElement {
     this.contractElement = document.createElement("p");
     this.locationElement = document.createElement("p");
     this.dividerElement = document.createElement("div");
+    this.logoSectionElement.classList.add("job__section", "job__section--logo");
+    this.infoSectionElement.classList.add("job__section", "job__section--info");
+    this.tagsSectionElement.classList.add("job__section", "job__section--tags");
+    this.logoElement.classList.add("job__logo");
+    this.infoHeaderElement.classList.add("job__row");
+    this.infoFooterElement.classList.add("job__row");
+    this.companyElement.classList.add("job__company");
+    this.positionElement.classList.add("job__position");
+    this.postedAtElement.classList.add("job__posted-at");
+    this.contractElement.classList.add("job__contract");
+    this.locationElement.classList.add("job__location");
+    this.dividerElement.classList.add("job__divider");
     this.displayTag = this.displayTag.bind(this);
   }
 
@@ -43,48 +55,28 @@ class JobCard extends HTMLElement {
 
   set job(job: Job) {
     this._job = job;
-    this.displayJob();
   }
 
   connectedCallback() {
     this.classList.add("job");
-    this.logoSectionElement.classList.add("job__section", "job__section--logo");
-    this.infoSectionElement.classList.add("job__section", "job__section--info");
-    this.tagsSectionElement.classList.add("job__section", "job__section--tags");
-    this.logoElement.classList.add("job__logo");
-    this.infoHeaderElement.classList.add("job__row");
-    this.infoFooterElement.classList.add("job__row");
-    this.companyElement.classList.add("job__company");
-    this.positionElement.classList.add("job__position");
-    this.postedAtElement.classList.add("job__posted-at");
-    this.contractElement.classList.add("job__contract");
-    this.locationElement.classList.add("job__location");
-    this.dividerElement.classList.add("job__divider");
+    this.logoElement.setAttribute("src", this.job.logo);
+    this.logoElement.setAttribute("alt", "Company logo");
+    this.companyElement.textContent = this.job.company;
+    this.positionElement.textContent = this.job.position;
+    this.postedAtElement.textContent = this.job.postedAt;
+    this.contractElement.textContent = this.job.contract;
+    this.locationElement.textContent = this.job.location;
+    this.displayTag(this.job.role);
+    this.displayTag(this.job.level);
+    this.job.languages.forEach(this.displayTag);
+    this.job.tools.forEach(this.displayTag);
     this.logoSectionElement.append(this.logoElement);
     this.infoHeaderElement.append(this.companyElement);
+    if (this.job.new) this.displayBadge("new");
+    if (this.job.featured) this.displayBadge("featured");
     this.infoFooterElement.append(this.postedAtElement, this.createDot(), this.contractElement, this.createDot(), this.locationElement);
     this.infoSectionElement.append(this.infoHeaderElement, this.positionElement, this.infoFooterElement);
     this.append(this.logoSectionElement, this.infoSectionElement, this.dividerElement, this.tagsSectionElement);
-  }
-
-  displayJob() {
-    if (this.isConnected) {
-      this.logoElement.setAttribute("src", this.job.logo);
-      this.logoElement.setAttribute("alt", "Company logo");
-      this.companyElement.textContent = this.job.company;
-      this.positionElement.textContent = this.job.position;
-      this.postedAtElement.textContent = this.job.postedAt;
-      this.contractElement.textContent = this.job.contract;
-      this.locationElement.textContent = this.job.location;
-      if (this.job.new) this.displayBadge("new");
-      if (this.job.featured) this.displayBadge("featured");
-      this.displayTag(this.job.role);
-      this.displayTag(this.job.level);
-      this.job.languages.forEach(this.displayTag);
-      this.job.tools.forEach(this.displayTag);
-    } else {
-      throw new Error("The job card must be attached to the DOM");
-    }
   }
 
   createDot() {
@@ -105,6 +97,9 @@ class JobCard extends HTMLElement {
     tagElement.classList.add("job__tag");
     tagElement.textContent = name;
     this.tagsSectionElement.append(tagElement);
+    tagElement.addEventListener("click", () => {
+      this.dispatchEvent(new CustomEvent("add-job-filter", { detail: { filter: name }, bubbles: true }));
+    });
   }
 }
 
