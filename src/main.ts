@@ -1,13 +1,16 @@
 import "./main.css";
 import data from "@data/data.json";
-import WebApp from "@components/web-app";
-import WebJob from "@components/web-job";
-import WebAppInterface from "@interfaces/web-app";
+import JobApp from "@components/job-app";
+import JobCardList from "@components/job-card-list";
+import JobFilterList from "@components/job-filter-list";
+import JobAppInterface from "@interfaces/job-app";
 
-customElements.define("web-app", WebApp, { extends: "main" });
-customElements.define("web-job", WebJob, { extends: "article" });
+customElements.define("job-card-list", JobCardList, { extends: "div" });
+customElements.define("job-filter-list", JobFilterList, { extends: "div" });
+customElements.define("job-app", JobApp, { extends: "main" });
 
-const webAppComment = document.createComment(" App ");
-const webApp = <WebAppInterface>document.createElement("main", { is: "web-app" });
-webApp.jobs = data;
-document.body.prepend(webAppComment, webApp);
+const jobAppComment = document.createComment(" App ");
+const jobApp = <JobAppInterface>document.createElement("main", { is: "job-app" });
+jobApp.jobList = data;
+jobApp.jobFilterList = [];
+document.body.prepend(jobAppComment, jobApp);

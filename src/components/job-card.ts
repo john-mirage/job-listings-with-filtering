@@ -1,6 +1,6 @@
 import Job from "@interfaces/job";
 
-class WebJob extends HTMLElement {
+class JobCard extends HTMLElement {
   _job: Job | false;
   logoSectionElement: HTMLDivElement;
   infoSectionElement: HTMLDivElement;
@@ -30,6 +30,7 @@ class WebJob extends HTMLElement {
     this.contractElement = document.createElement("p");
     this.locationElement = document.createElement("p");
     this.dividerElement = document.createElement("div");
+    this.displayTag = this.displayTag.bind(this);
   }
 
   get job() {
@@ -42,6 +43,7 @@ class WebJob extends HTMLElement {
 
   set job(job: Job) {
     this._job = job;
+    this.displayJob();
   }
 
   connectedCallback() {
@@ -58,39 +60,31 @@ class WebJob extends HTMLElement {
     this.contractElement.classList.add("job__contract");
     this.locationElement.classList.add("job__location");
     this.dividerElement.classList.add("job__divider");
-    this.logoElement.setAttribute("src", this.job.logo);
-    this.logoElement.setAttribute("alt", "Company logo");
-    this.companyElement.textContent = this.job.company;
-    this.positionElement.textContent = this.job.position;
-    this.postedAtElement.textContent = this.job.postedAt;
-    this.contractElement.textContent = this.job.contract;
-    this.locationElement.textContent = this.job.location;
     this.logoSectionElement.append(this.logoElement);
     this.infoHeaderElement.append(this.companyElement);
-    if (this.job.new) {
-      const newBadgeElement = this.createBadge("new");
-      this.infoHeaderElement.append(newBadgeElement);
-    }
-    if (this.job.featured) {
-      const featuredBadgeElement = this.createBadge("featured");
-      this.infoHeaderElement.append(featuredBadgeElement);
-    }
-    const leftDotElement = this.createDot();
-    const rightDotElement = this.createDot();
-    this.infoFooterElement.append(this.postedAtElement, leftDotElement, this.contractElement, rightDotElement, this.locationElement);
+    this.infoFooterElement.append(this.postedAtElement, this.createDot(), this.contractElement, this.createDot(), this.locationElement);
     this.infoSectionElement.append(this.infoHeaderElement, this.positionElement, this.infoFooterElement);
-    const roleTagElement = this.createTag(this.job.role);
-    const levelTagElement = this.createTag(this.job.level);
-    this.tagsSectionElement.append(roleTagElement, levelTagElement);
-    this.job.languages.forEach((language) => {
-      const languageTagElement = this.createTag(language);
-      this.tagsSectionElement.append(languageTagElement);
-    });
-    this.job.tools.forEach((tool) => {
-      const toolTagElement = this.createTag(tool);
-      this.tagsSectionElement.append(toolTagElement);
-    });
     this.append(this.logoSectionElement, this.infoSectionElement, this.dividerElement, this.tagsSectionElement);
+  }
+
+  displayJob() {
+    if (this.isConnected) {
+      this.logoElement.setAttribute("src", this.job.logo);
+      this.logoElement.setAttribute("alt", "Company logo");
+      this.companyElement.textContent = this.job.company;
+      this.positionElement.textContent = this.job.position;
+      this.postedAtElement.textContent = this.job.postedAt;
+      this.contractElement.textContent = this.job.contract;
+      this.locationElement.textContent = this.job.location;
+      if (this.job.new) this.displayBadge("new");
+      if (this.job.featured) this.displayBadge("featured");
+      this.displayTag(this.job.role);
+      this.displayTag(this.job.level);
+      this.job.languages.forEach(this.displayTag);
+      this.job.tools.forEach(this.displayTag);
+    } else {
+      throw new Error("The job card must be attached to the DOM");
+    }
   }
 
   createDot() {
@@ -99,19 +93,19 @@ class WebJob extends HTMLElement {
     return dotElement;
   }
 
-  createBadge(name: string) {
+  displayBadge(name: string) {
     const badgeElement = document.createElement("button");
     badgeElement.classList.add("job__badge", `job__badge--${name}`);
     badgeElement.textContent = name;
-    return badgeElement;
+    this.infoHeaderElement.append(badgeElement);
   }
 
-  createTag(name: string) {
+  displayTag(name: string) {
     const tagElement = document.createElement("button");
     tagElement.classList.add("job__tag");
     tagElement.textContent = name;
-    return tagElement;
+    this.tagsSectionElement.append(tagElement);
   }
 }
 
-export default WebJob;
+export default JobCard;

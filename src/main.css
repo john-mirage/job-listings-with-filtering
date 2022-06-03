@@ -1,7 +1,8 @@
 @import "assets/styles/page.css";
-@import "assets/styles/app.css";
-@import "assets/styles/job-filter.css";
-@import "assets/styles/job.css";
+@import "assets/styles/filter-list.css";
+@import "assets/styles/filter.css";
+@import "assets/styles/card-list.css";
+@import "assets/styles/card.css";
 
 :root {
   --color-desaturated-dark-cyan: hsl(180, 29%, 50%);

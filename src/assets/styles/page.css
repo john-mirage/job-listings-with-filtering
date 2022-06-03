@@ -8,3 +8,9 @@
     background-position: top;
     background-size: auto 15.6rem, cover;
 }
+
+.page__container {
+    width: 100%;
+    height: auto;
+    padding: 21.2rem 2.4rem 3.4rem 2.4rem;
+}
