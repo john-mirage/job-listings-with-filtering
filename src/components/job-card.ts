@@ -10,6 +10,7 @@ class JobCard extends HTMLElement {
   postedAtElement: HTMLParagraphElement;
   contractElement: HTMLParagraphElement;
   locationElement: HTMLParagraphElement;
+  badgesElement: HTMLDivElement;
   tagsElement: HTMLDivElement;
   tags?: HTMLButtonElement[];
 
@@ -25,6 +26,7 @@ class JobCard extends HTMLElement {
     this.postedAtElement = <HTMLParagraphElement>this.fragment.querySelector('[data-name="posted-at"]');
     this.contractElement = <HTMLParagraphElement>this.fragment.querySelector('[data-name="contract"]');
     this.locationElement = <HTMLParagraphElement>this.fragment.querySelector('[data-name="location"]');
+    this.badgesElement = <HTMLDivElement>this.fragment.querySelector('[data-name="badges"]');
     this.tagsElement = <HTMLDivElement>this.fragment.querySelector('[data-name="tags"]');
   }
 
@@ -46,14 +48,14 @@ class JobCard extends HTMLElement {
       this.logoElement.setAttribute("src", this.job.logo);
       this.logoElement.setAttribute("alt", "Company logo");
       this.companyElement.textContent = this.job.company;
-      if (this.job.featured) {
-        const featuredBadge = this.createBadge("featured");
-        this.companyElement.after(featuredBadge);
-        this.classList.add("card--border");
-      }
       if (this.job.new) {
         const newBadge = this.createBadge("new");
-        this.companyElement.after(newBadge);
+        this.badgesElement.append(newBadge);
+      }
+      if (this.job.featured) {
+        const featuredBadge = this.createBadge("featured");
+        this.badgesElement.append(featuredBadge);
+        this.classList.add("card--border");
       }
       this.positionElement.textContent = this.job.position;
       this.postedAtElement.textContent = this.job.postedAt;

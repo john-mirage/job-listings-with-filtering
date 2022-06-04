@@ -6,6 +6,7 @@ class JobApp extends HTMLElement {
   _jobList: Job[] | false;
   _jobFilterList: string[] | false;
   initialCall: boolean;
+  titleElement: HTMLHeadingElement;
   jobCardListElement: JobCardListInterface;
   jobFilterListElement: JobFilterListInterface;
 
@@ -14,6 +15,9 @@ class JobApp extends HTMLElement {
     this._jobList = false;
     this._jobFilterList = false;
     this.initialCall = true;
+    this.titleElement = document.createElement("h1");
+    this.titleElement.classList.add("page__title");
+    this.titleElement.textContent = "Job listings with filtering";
     this.jobCardListElement = <JobCardListInterface>document.createElement("div", { is: "job-card-list" });
     this.jobFilterListElement = <JobFilterListInterface>document.createElement("div", { is: "job-filter-list" });
   }
@@ -48,7 +52,7 @@ class JobApp extends HTMLElement {
   connectedCallback() {
     if (this.initialCall) {
       this.classList.add("page__container");
-      this.append(this.jobCardListElement);
+      this.append(this.titleElement, this.jobCardListElement);
       this.initialCall = false;
     }
     this.addEventListener("add-job-filter", this.addJobFilter);
@@ -105,7 +109,7 @@ class JobApp extends HTMLElement {
 
   handleJobFilterListVisibility() {
     if (this.jobFilterList.length > 0 && !this.jobFilterListElement.isConnected) {
-      this.prepend(this.jobFilterListElement);
+      this.jobCardListElement.before(this.jobFilterListElement);
     } else if (this.jobFilterList.length <= 0 && this.jobFilterListElement.isConnected) {
       this.removeChild(this.jobFilterListElement);
     }
