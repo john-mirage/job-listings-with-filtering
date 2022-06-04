@@ -95,10 +95,8 @@ class JobApp extends HTMLElement {
   filterJobList() {
     if (this.jobFilterList.length > 0) {
       this.jobCardListElement.jobList = this.jobList.filter((job) => {
-        if (this.jobFilterList.includes(job.role)) return true;
-        if (this.jobFilterList.includes(job.level)) return true;
-        if (this.jobFilterList.filter((filter) => job.languages.includes(filter)).length > 0) return true;
-        return this.jobFilterList.filter((filter) => job.tools.includes(filter)).length > 0;
+        const tags = [job.role, job.level, ...job.languages, ...job.tools];
+        return this.jobFilterList.every((jobFilter) => tags.includes(jobFilter));
       });
     } else {
       this.jobCardListElement.jobList = this.jobList;
